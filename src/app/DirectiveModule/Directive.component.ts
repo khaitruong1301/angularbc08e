@@ -39,23 +39,83 @@ import { Component, OnInit } from '@angular/core';
             <hr/>
             <h3>*ngFor</h3>
             <div class="row">
-                <div class="col-4" *ngFor="let user of arrUser; let index = index">
-                    <div class="card">
-                        <img [src]="user.avatar" alt="..." />
-                        <div class="card-body">
-                            <p>ID: {{index + 1}}</p>
-                            <p>userName: {{user.userName}}</p>
-                            <p>Password: {{user.password}}</p>
-                            <p>Email: {{user.email}}</p>
+                <ng-container *ngIf="arrUser.length!==0">
+                    <div class="col-4" *ngFor="let user of arrUser; let index = index">
+                        <div class="card">
+                            <img [src]="user.avatar" alt="..." />
+                            <div class="card-body">
+                                <p>ID: {{index + 1}}</p>
+                                <p>userName: {{user.userName}}</p>
+                                <p>Password: {{user.password}}</p>
+                                <p>Email: {{user.email}}</p>
+                            </div>
                         </div>
                     </div>
-
-                </div>
+                </ng-container>
             </div>
+            <hr />
+            <h3>ng-content</h3>
+            <app-demo-ngContent>
+                <img class="logo" src="https://picsum.photos/50/50" alt="...">
+
+                <h3 class="title">Cybersoft</h3>
+
+            </app-demo-ngContent>
+            <hr/>
+            <h3>[ngClass]</h3>
+            <p [ngClass]="{'mau-chu':mauChu,'font-chu':fontChu }" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae obcaecati provident voluptatem. Quisquam dolorem voluptates, aspernatur ipsum vitae, incidunt nobis sint temporibus commodi quo adipisci pariatur accusantium ea omnis error! </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>userName</th>
+                        <th>password</th>
+                        <th>email</th>
+                        <th>avatar</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr [ngClass]="{'bg-dark text-white':index%2==0}" *ngFor="let user of arrUser; let index = index">
+                        <td>{{user.userName}}</td>
+                        <td>{{user.password}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.avatar}}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <h3>*ngStyle</h3>
+            <div [ngStyle]="{'background-image':backgroundImg}" style="height:300px">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores ex quos culpa laboriosam error, quo quas voluptatum impedit consequuntur cum et reprehenderit soluta fugiat rem illo commodi fuga ratione aut?
+            </div>
+
+            <h3>Bài tập</h3>
+            <p [ngStyle]="{'font-size':fontSize+'px'}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore enim perferendis facilis repellat qui iusto nobis facere ex tempore recusandae vero quo minus quisquam fuga illum dolorum, natus corporis quae.</p>
+            <button class="m-2 btn btn-outline-success" (click)="tangGiamFont(true)"> + </button>
+            <button class="m-2 btn btn-outline-success" (click)="tangGiamFont(false)"> - </button>
+            <hr />
+            <h3>Bài tập login</h3>
+            <app-bt-directive></app-bt-directive>
+            <hr />
+            <h3>Bài tập quản lý sản phẩm</h3>
+            <app-bt-qlsp></app-bt-qlsp>
         </div>
-    `
+    `,
+    styles:[`
+        .mau-chu {
+            color:red;
+        }
+        .font-chu{
+            font-size:25px
+        }
+    `]
 })
 export class DirectiveComponent implements OnInit {
+    fontSize:number = 17;
+    backgroundImg:string = 'url("https://picsum.photos/200/200")';
+    mauChu:boolean = true
+    fontChu:boolean = false
     arrUser:User[] = [
         {userName:'sideptrai',password:'12/12/2000',email:'si3d@gmail.com',avatar:'https://i.pravatar.cc?u=si'},
         {userName:'khai',password:'123456',email:'khai@gmail.com',avatar:'https://i.pravatar.cc?u=khai'},
@@ -67,6 +127,10 @@ export class DirectiveComponent implements OnInit {
     isLogin: boolean = false;
     login() {
         this.isLogin = true;
+    }
+    tangGiamFont(tangGiam:boolean){
+        if(tangGiam) this.fontSize += 2;
+        else this.fontSize -= 2;
     }
     constructor() { }
     ngOnInit() { }
