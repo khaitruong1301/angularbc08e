@@ -16,6 +16,33 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DirectiveUIModule } from './DirectiveUI/DirectiveUI.module';
+//Khai báo routing 
+import { Routes,RouterModule } from '@angular/router';
+import { HomeComponent } from './Pages/Home.component';
+import { AboutComponent } from './Pages/About.component';
+import { ContactComponent } from './Pages/Contact.component';
+import { LoginComponent } from './Pages/Users/Login.component';
+import { RegisterComponent } from './Pages/Users/Register.component';
+import { HomeModule } from './Pages/Home.module';
+import { UsersModule } from './Pages/Users/Users.module';
+import { AdminModule } from './Pages/Admin/Admin.module';
+
+
+let appRoutes:Routes = [
+  {path:'home',loadChildren:()=>HomeModule},
+  {path:'users',loadChildren:()=>UsersModule},
+  {path:'admin',loadChildren:()=>AdminModule},
+  {path:'',loadChildren:()=>HomeModule},
+
+  // {path:'home',component:HomeComponent},
+  // {path:'about',component:AboutComponent},
+  // {path:'contact',component:ContactComponent},
+  // {path:'login',component:LoginComponent},
+  // {path:'register',component:RegisterComponent},
+  // {path:'',component:HomeComponent},
+  // {path:'**',redirectTo:''}
+
+]
 
 registerLocaleData(en);
 
@@ -29,7 +56,9 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule, //Nơi import các module khác của ứng dụng,
-    DirectiveUIModule
+    DirectiveUIModule,
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule //Module giúp gọi api 
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }], //Nơi khai báo các service 
   bootstrap: [AppComponent] // Nơi khai báo các chạy tren index Component <app-root></app-root> được chạy trên index
