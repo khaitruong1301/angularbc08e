@@ -13,11 +13,11 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DirectiveUIModule } from './DirectiveUI/DirectiveUI.module';
 //Khai báo routing 
-import { Routes,RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './Pages/Home.component';
 import { AboutComponent } from './Pages/About.component';
 import { ContactComponent } from './Pages/Contact.component';
@@ -26,13 +26,14 @@ import { RegisterComponent } from './Pages/Users/Register.component';
 import { HomeModule } from './Pages/Home.module';
 import { UsersModule } from './Pages/Users/Users.module';
 import { AdminModule } from './Pages/Admin/Admin.module';
+import { HeaderInterceptor } from './_core/Guards/Author.interceptor';
 
 
-let appRoutes:Routes = [
-  {path:'home',loadChildren:()=>HomeModule},
-  {path:'users',loadChildren:()=>UsersModule},
-  {path:'admin',loadChildren:()=>AdminModule},
-  {path:'',loadChildren:()=>HomeModule},
+let appRoutes: Routes = [
+  { path: 'home', loadChildren: () => HomeModule },
+  { path: 'users', loadChildren: () => UsersModule },
+  { path: 'admin', loadChildren: () => AdminModule },
+  { path: '', loadChildren: () => HomeModule },
 
   // {path:'home',component:HomeComponent},
   // {path:'about',component:AboutComponent},
@@ -48,10 +49,10 @@ registerLocaleData(en);
 
 @NgModule({
   declarations: [
-    AppComponent,DemoComponent, //Nơi chứa component (Mỗi component sinh ra phải có module chứa nó)
+    AppComponent, DemoComponent, //Nơi chứa component (Mỗi component sinh ra phải có module chứa nó)
   ],
   imports: [
-    BrowserModule,BaiTapLayoutModule,DataBindingModule,DirectiveModule,
+    BrowserModule, BaiTapLayoutModule, DataBindingModule, DirectiveModule,
     PropsModule,
     FormsModule,
     HttpClientModule,
@@ -60,7 +61,12 @@ registerLocaleData(en);
     RouterModule.forRoot(appRoutes),
     HttpClientModule //Module giúp gọi api 
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }], //Nơi khai báo các service 
+  providers: [
+    { provide: NZ_I18N, useValue: en_US },
+    
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }
+
+  ], //Nơi khai báo các service 
   bootstrap: [AppComponent] // Nơi khai báo các chạy tren index Component <app-root></app-root> được chạy trên index
 })
 export class AppModule { }

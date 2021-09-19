@@ -10,6 +10,7 @@ import { HomeTemplateComponent } from './HomeTemplate.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FilmsService } from '../_core/Services/Films.service';
 import { DetailsComponent } from './Details.component';
+import { FormComponent } from './Form.component';
 
 const homeRoutes:Routes = [
     {path:'',component:HomeTemplateComponent,children:[
@@ -18,14 +19,13 @@ const homeRoutes:Routes = [
         {path:'contact',component:ContactComponent},
         {path:'details/:id',component:DetailsComponent},
         {path:'details',component:DetailsComponent},
+        {path:'form',component:FormComponent},
 
     ]}
 ]
 
-
-
 @NgModule({
-    declarations: [HomeComponent,AboutComponent,ContactComponent,HomeTemplateComponent],
+    declarations: [HomeComponent,AboutComponent,ContactComponent,HomeTemplateComponent,FormComponent],
     imports: [CommonModule,AntDModule,FormsModule,RouterModule.forChild(homeRoutes)],
     exports: [],
     // providers:[FilmsService]//Khai báo service
