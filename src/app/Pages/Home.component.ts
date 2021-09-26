@@ -13,7 +13,7 @@ import { FilmsService } from '../_core/Services/Films.service';
                         <img [src]="film.hinhAnh"  alt="..."/>
                         <div class="card-body">
                             <p>{{film.tenPhim}}</p>
-                            <p>{{film.moTa}}</p>
+                            <p>{{film.moTa | shortcut: 100}}</p>
                             <a class="btn btn-success" routerLink="/details/{{film.maPhim}}">Xem chi tiết</a>
 
                             <a class="btn btn-success" [routerLink]="['/details',film.maPhim]">Xem chi tiết</a>

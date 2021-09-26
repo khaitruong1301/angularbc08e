@@ -22,7 +22,12 @@ import { Component, OnInit } from '@angular/core';
                         <li class="nav-item">
                             <a class="nav-link" routerLinkActive="active" [routerLink]="['/contact']" >Contact</a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLink]="['/pipe']" >Pipe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLink]="['/lifecycle']" >Lifecycle</a>
+                        </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="text" placeholder="Search">

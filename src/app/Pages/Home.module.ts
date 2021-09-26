@@ -11,6 +11,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { FilmsService } from '../_core/Services/Films.service';
 import { DetailsComponent } from './Details.component';
 import { FormComponent } from './Form.component';
+import { ProfileComponent } from './Profile.component';
+import { isLoginGuard } from '../_core/Guards/isLogin.guard';
+import { RegisterComponent } from './Users/Register.component';
+import { LoginComponent } from './Users/Login.component';
+import { UsersModule } from './Users/Users.module';
+import { isRegisterGuard } from '../_core/Guards/isRegister.guard';
+import { PipeComponent } from './Pipe.component';
+import { PipeModule } from '../_core/Shared/PipesModule/Pipe.module';
+import { LifecycleComponent } from './Lifecycle.component';
+import { ChildComponent } from './Child.component';
 
 const homeRoutes:Routes = [
     {path:'',component:HomeTemplateComponent,children:[
@@ -20,13 +30,18 @@ const homeRoutes:Routes = [
         {path:'details/:id',component:DetailsComponent},
         {path:'details',component:DetailsComponent},
         {path:'form',component:FormComponent},
+        {path:'register',component:RegisterComponent,canDeactivate:[isRegisterGuard]},
+        {path:'login',component:LoginComponent},
+        {path:'pipe',component:PipeComponent},
+        {path:'lifecycle',component:LifecycleComponent},
+        {path:'profile',component:ProfileComponent,canActivate:[isLoginGuard]},
 
     ]}
 ]
 
 @NgModule({
-    declarations: [HomeComponent,AboutComponent,ContactComponent,HomeTemplateComponent,FormComponent],
-    imports: [CommonModule,AntDModule,FormsModule,RouterModule.forChild(homeRoutes)],
+    declarations: [HomeComponent,AboutComponent,ContactComponent,HomeTemplateComponent,FormComponent,ProfileComponent,PipeComponent,LifecycleComponent,ChildComponent],
+    imports: [CommonModule,AntDModule,FormsModule,RouterModule.forChild(homeRoutes),PipeModule],
     exports: [],
     // providers:[FilmsService]//Khai báo service
 })
