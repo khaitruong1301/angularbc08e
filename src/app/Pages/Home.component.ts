@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Film } from '../_core/Models/Film';
 import { FilmsService } from '../_core/Services/Films.service';
 
@@ -19,6 +20,10 @@ import { FilmsService } from '../_core/Services/Films.service';
                             <a class="btn btn-success" [routerLink]="['/details',film.maPhim]">Xem chi tiết</a>
 
                             <a class="btn btn-success" [routerLink]="['/details']"  [queryParams]="{maPhim:film.maPhim,tenPhim:film.tenPhim}">Xem chi tiết</a>
+
+
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#modelId"  (click)="xemChiTiet(film)">Xem chi tiết (popup)</button>
+
                         </div>
                     </div>
                 </div>
@@ -29,7 +34,7 @@ import { FilmsService } from '../_core/Services/Films.service';
 export class HomeComponent implements OnInit {
     films:Film[] = []
     //DI: Dependency injection 
-    constructor(private filmService:FilmsService) {
+    constructor(private filmService:FilmsService,private store:Store) {
 
     }
     //ngOninit là 1 lifecycle giống component didmount
@@ -41,5 +46,13 @@ export class HomeComponent implements OnInit {
             console.log('errors',{errors})
         })
 
+    }
+
+    xemChiTiet(film:any) {
+        // this.filmService.storeModal.next(film)
+        this.filmService.xemChiTiet(film);
+
+
+        this.store.dispatch({type:'XEM_CHI_TIET',film:film})
     }
 }

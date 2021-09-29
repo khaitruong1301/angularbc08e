@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AntDModule } from '../_core/Shared/AntDModule/Antd.Module';
 import { AboutComponent } from './About.component';
 import { ContactComponent } from './Contact.component';
 import { HomeComponent } from './Home.component';
@@ -21,6 +20,8 @@ import { PipeComponent } from './Pipe.component';
 import { PipeModule } from '../_core/Shared/PipesModule/Pipe.module';
 import { LifecycleComponent } from './Lifecycle.component';
 import { ChildComponent } from './Child.component';
+import { AntDModule } from '@Antdesign';
+import { MaterialModule } from '@share/MaterialModule/Material.module';
 
 const homeRoutes:Routes = [
     {path:'',component:HomeTemplateComponent,children:[
@@ -41,7 +42,7 @@ const homeRoutes:Routes = [
 
 @NgModule({
     declarations: [HomeComponent,AboutComponent,ContactComponent,HomeTemplateComponent,FormComponent,ProfileComponent,PipeComponent,LifecycleComponent,ChildComponent],
-    imports: [CommonModule,AntDModule,FormsModule,RouterModule.forChild(homeRoutes),PipeModule],
+    imports: [CommonModule,FormsModule,RouterModule.forChild(homeRoutes),PipeModule,AntDModule,MaterialModule],
     exports: [],
     // providers:[FilmsService]//Khai báo service
 })

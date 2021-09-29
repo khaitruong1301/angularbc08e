@@ -27,6 +27,9 @@ import { HomeModule } from './Pages/Home.module';
 import { UsersModule } from './Pages/Users/Users.module';
 import { AdminModule } from './Pages/Admin/Admin.module';
 import { HeaderInterceptor } from './_core/Guards/Author.interceptor';
+import { ModalComponent } from './appModal.component';
+import { StoreModule } from '@ngrx/store';
+import { modalReducer } from './_core/NGRXStore/Reducers/Modal.Reducer';
 
 
 let appRoutes: Routes = [
@@ -49,7 +52,7 @@ registerLocaleData(en);
 
 @NgModule({
   declarations: [
-    AppComponent, DemoComponent, //Nơi chứa component (Mỗi component sinh ra phải có module chứa nó)
+    AppComponent, DemoComponent,ModalComponent //Nơi chứa component (Mỗi component sinh ra phải có module chứa nó)
   ],
   imports: [
     BrowserModule, BaiTapLayoutModule, DataBindingModule, DirectiveModule,
@@ -59,7 +62,11 @@ registerLocaleData(en);
     BrowserAnimationsModule, //Nơi import các module khác của ứng dụng,
     DirectiveUIModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule //Module giúp gọi api 
+    HttpClientModule,
+    StoreModule.forRoot({
+                          modalReducer:modalReducer,
+                          //Các reducer khác ...
+                        }) //Module giúp gọi api 
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
