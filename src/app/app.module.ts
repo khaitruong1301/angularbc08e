@@ -30,6 +30,8 @@ import { HeaderInterceptor } from './_core/Guards/Author.interceptor';
 import { ModalComponent } from './appModal.component';
 import { StoreModule } from '@ngrx/store';
 import { modalReducer } from './_core/NGRXStore/Reducers/Modal.Reducer';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 let appRoutes: Routes = [
@@ -66,7 +68,13 @@ registerLocaleData(en);
     StoreModule.forRoot({
                           modalReducer:modalReducer,
                           //Các reducer khác ...
-                        }) //Module giúp gọi api 
+                        }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }) //Module giúp gọi api 
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
